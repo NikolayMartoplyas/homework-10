@@ -41,12 +41,8 @@ public class PostersManager {
 
         for (int i = 0; i < resultSize; i++) {
             result[i] = moviePosters[moviePosters.length - 1 - i];
-            System.out.println();
         }
         return result;
-    }
-    public void setLimit(int limit){
-        this.limit = limit;
     }
 
 }

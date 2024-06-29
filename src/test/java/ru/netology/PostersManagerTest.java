@@ -16,9 +16,11 @@ public class PostersManagerTest {
     Movie item6 = new Movie("Тролли",10.06, "Мультфильм");
     Movie item7 = new Movie("Номер один",12.05, "комедия");
 
-    PostersManager poster = new PostersManager();
-    @BeforeEach
-    public void setUp(){
+
+
+    @Test
+    public void addingMovieToThePoster() {
+        PostersManager poster = new PostersManager(7);
         poster.addMovie(item1);
         poster.addMovie(item2);
         poster.addMovie(item3);
@@ -26,9 +28,6 @@ public class PostersManagerTest {
         poster.addMovie(item5);
         poster.addMovie(item6);
         poster.addMovie(item7);
-    }
-    @Test
-    public void addingMovieToThePoster() {
         poster.findAll();
 
         Movie[] expected = {item1, item2, item3, item4, item5, item6, item7};
@@ -39,8 +38,14 @@ public class PostersManagerTest {
     }
     @Test
     public void outputMoviesInReverseOrder(){
-        poster.findLast();
-
+        PostersManager poster = new PostersManager();
+        poster.addMovie(item1);
+        poster.addMovie(item2);
+        poster.addMovie(item3);
+        poster.addMovie(item4);
+        poster.addMovie(item5);
+        poster.addMovie(item6);
+        poster.addMovie(item7);
         Movie[] expected = { item7, item6, item5, item4, item3};
         Movie[] actual = poster.findLast();
 
@@ -49,15 +54,47 @@ public class PostersManagerTest {
     }
     @Test
     public void outputMoviesInReverseOrderTwo(){
-        poster.findLast();
-        poster.setLimit(3);
-
+        PostersManager poster = new PostersManager(3);
+        poster.addMovie(item1);
+        poster.addMovie(item2);
+        poster.addMovie(item3);
+        poster.addMovie(item4);
+        poster.addMovie(item5);
+        poster.addMovie(item6);
+        poster.addMovie(item7);
         Movie[] expected = { item7, item6, item5, };
         Movie[] actual = poster.findLast();
 
         Assertions.assertArrayEquals(expected, actual);
 
     }
+    @Test
+    public void filmsLessThanLimit(){
+        PostersManager poster = new PostersManager();
+        poster.addMovie(item1);
+        poster.addMovie(item2);
+        poster.addMovie(item3);
 
+
+        Movie[] expected = { item3, item2, item1, };
+        Movie[] actual = poster.findLast();
+
+        Assertions.assertArrayEquals(expected, actual);
+
+    }
+    @Test
+    public void numberOfFilmsMeetTheLimit(){
+        PostersManager poster = new PostersManager();
+        poster.addMovie(item1);
+        poster.addMovie(item2);
+        poster.addMovie(item3);
+        poster.addMovie(item4);
+        poster.addMovie(item5);
+
+        Movie[] expected = { item5, item4, item3, item2, item1 };
+        Movie[] actual = poster.findLast();
+
+        Assertions.assertArrayEquals(expected, actual);
+
+    }
 }
-
